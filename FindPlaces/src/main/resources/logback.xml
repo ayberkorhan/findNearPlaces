@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>[%-20d{yyyy/MM/dd HH:mm:ss}] [%-6p] [%-25.-25t] [%-50c] - %msg %n</pattern>
+		</encoder>
+	</appender>
+	<!-- BY TIME OF FILES -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>./logs/servisRequestLogs.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>./logs/servisRequestLogs.%d{yyyy-MM-dd-HH}.%i.log.zip</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>15MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>[%-20d{yyyy/MM/dd HH:mm:ss}] [%-6p] [%-25.-25t] [%-50c] - %msg %n</pattern>
+		</encoder>
+	</appender>
+	
+	<logger name="org.springframework.web.client.RestTemplate" level="debug" additivity="false">
+             <appender-ref ref="CONSOLE" /> -->
+            <appender-ref ref="FILE" />
+	</logger>
+	<root level="info" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE"/>
+	</root>
+</configuration>
